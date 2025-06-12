@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отиди до</title>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="/">
+            <i>Отиди до</i>
+        </a>
+        <div>
+            <ul>
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Изход</a></li>
+
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+
+                <li><a href="{% url 'profile' %}">Моят профил</a></li>
+                <li><span>Здравей, {{ user.username }}!</span></li>
+                {% else %}
+                <li><a href="{% url 'login' %}">Вход</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                {% endif %}
+
+
+                <li>
+                    <a href="*">
+                        <i>През цялата година</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="*">
+                        <i>Сезонно</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="*">
+                        <i>Специални събития</i>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<p>Некви прости думички</p>
+
+{% block content %}
+{{% endblock %}
+
+</body>
+</html>

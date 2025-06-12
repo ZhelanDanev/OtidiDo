@@ -1,0 +1,14 @@
+{% extends "common/base.html" %}
+
+{% block content %}
+<h2>Профил на {{ user.username }}</h2>
+
+{% if traveler.avatar %}
+    <img src="{{ traveler.avatar.url }}" alt="Аватар">
+{% else %}
+    <p>Няма качен аватар</p>
+{% endif %}
+
+<p><strong>Биография:</strong> {{ traveler.bio }}</p>
+
+{% endblock %}
