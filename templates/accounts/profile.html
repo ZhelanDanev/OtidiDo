@@ -11,4 +11,12 @@
 
 <p><strong>Биография:</strong> {{ traveler.bio }}</p>
 
+<a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактирай профил</a>
+
+<form action="{% url 'delete_profile' %}" method="post" onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш акаунта си?');">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Изтрий акаунта</button>
+</form>
+
+
 {% endblock %}

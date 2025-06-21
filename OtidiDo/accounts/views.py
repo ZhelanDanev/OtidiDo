@@ -37,3 +37,10 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=traveler)
     return render(request, 'accounts/edit_profile.html', {'form': form})
+
+
+@login_required
+def delete_profile(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('home')
