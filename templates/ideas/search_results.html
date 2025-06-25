@@ -1,0 +1,12 @@
+
+<h2>Резултати за: "{{ query }}"</h2>
+
+{% if results %}
+  <ul>
+    {% for item in results %}
+      <li><strong>{{ item.title }}</strong>: {{ item.description }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>Няма намерени резултати.</p>
+{% endif %}

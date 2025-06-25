@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,12 +33,12 @@
 
                 <li>
                     <a href="*">
-                        <i>През цялата година</i>
+                        <i>Природа</i>
                     </a>
                 </li>
                 <li>
                     <a href="*">
-                        <i>Сезонно</i>
+                        <i>Градско</i>
                     </a>
                 </li>
                 <li>
@@ -52,11 +53,30 @@
     </div>
 </nav>
 
+<h2>Най-харесвани идеи</h2>
+<ul>
+  {% for idea in top_ideas %}
+    <li>
+      <a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a> — {{ idea.num_likes }} ❤️
+    </li>
+  {% empty %}
+    <li>Все още няма популярни идеи.</li>
+  {% endfor %}
+</ul>
 
-<p>Некви прости думички</p>
+
+<p>Думички над търсачката</p>
+<form method="get" action="{% url 'search' %}">
+    <input type="text" name="q" placeholder="Търси преживяване..." required>
+    <button type="submit">🔍</button>
+</form>
+
+
 
 {% block content %}
 {{% endblock %}
+
+<script src="{% static 'js/search.js' %}"></script>
 
 </body>
 </html>

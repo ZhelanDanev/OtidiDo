@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('OtidiDo.common.urls')),
     path('accounts/', include('OtidiDo.accounts.urls')),
+    path('ideas/', include('OtidiDo.ideas.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

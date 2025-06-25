@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'OtidiDo.common',
-    'OtidiDo.accounts'
+    'OtidiDo.accounts',
+    'OtidiDo.ideas'
 
 ]
 

@@ -1,0 +1,35 @@
+<h2>{{ idea.title }}</h2>
+<p>{{ idea.description }}</p>
+<p>Град: {{ idea.city }}</p>
+{% if idea.date_event %}
+<p>Дата на събитието: {{ idea.date_event }}</p>
+{% endif %}
+
+{% if idea.image %}
+  <img src="{{ idea.image.url }}" alt="Снимка" />
+{% endif %}
+
+<!-- Like бутон -->
+<form method="post" action="{% url 'like_idea' idea.pk %}">
+  {% csrf_token %}
+  <button type="submit">
+    {% if liked %}💔 Unlike{% else %}❤️ Like{% endif %}
+  </button> {{ like_count }} харесвания
+</form>
+
+<!-- Коментари -->
+<h3>Коментари</h3>
+<ul>
+  {% for comment in comments %}
+    <li><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</li>
+  {% empty %}
+    <li>Все още няма коментари.</li>
+  {% endfor %}
+</ul>
+
+<!-- Форма за коментар -->
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Добави коментар</button>
+</form>
