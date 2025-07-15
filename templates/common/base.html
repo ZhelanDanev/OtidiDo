@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Отиди до</title>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
 </head>
 <body>
 
@@ -32,17 +33,17 @@
 
 
                 <li>
-                    <a href="*">
+                    <a href="{% url 'nature_ideas' %}">
                         <i>Природа</i>
                     </a>
                 </li>
                 <li>
-                    <a href="*">
+                    <a href="{% url 'urban_ideas' %}">
                         <i>Градско</i>
                     </a>
                 </li>
                 <li>
-                    <a href="*">
+                    <a href="{% url 'event_ideas' %}">
                         <i>Специални събития</i>
                     </a>
                 </li>
@@ -53,28 +54,9 @@
     </div>
 </nav>
 
-<h2>Най-харесвани идеи</h2>
-<ul>
-  {% for idea in top_ideas %}
-    <li>
-      <a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a> — {{ idea.num_likes }} ❤️
-    </li>
-  {% empty %}
-    <li>Все още няма популярни идеи.</li>
-  {% endfor %}
-</ul>
-
-
-<p>Думички над търсачката</p>
-<form method="get" action="{% url 'search' %}">
-    <input type="text" name="q" placeholder="Търси преживяване..." required>
-    <button type="submit">🔍</button>
-</form>
-
-
 
 {% block content %}
-{{% endblock %}
+{% endblock %}
 
 <script src="{% static 'js/search.js' %}"></script>
 

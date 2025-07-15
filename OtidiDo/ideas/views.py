@@ -54,9 +54,6 @@ def search_view(request):
     return render(request, "ideas/search_results.html", {"query": query, "results": results})
 
 
-
-
-
 @login_required
 def create_idea(request):
     if request.method == "POST":
@@ -91,3 +88,21 @@ def delete_idea(request, pk):
         idea.delete()
         return redirect('home')
     return render(request, 'ideas/delete_idea_confirm.html', {'idea': idea})
+
+
+@login_required
+def nature_ideas_view(request):
+    ideas = Idea.objects.filter(category='nature')
+    return render(request, 'ideas/idea_list.html', {'ideas': ideas, 'category_title': 'Природа'})
+
+
+@login_required
+def urban_ideas_view(request):
+    ideas = Idea.objects.filter(category='urban')
+    return render(request, 'ideas/idea_list.html', {'ideas': ideas, 'category_title': 'Градско'})
+
+
+@login_required
+def event_ideas_view(request):
+    ideas = Idea.objects.filter(category='event')
+    return render(request, 'ideas/idea_list.html', {'ideas': ideas, 'category_title': 'Специални събития'})

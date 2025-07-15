@@ -1,0 +1,19 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<form method="get" action="{% url 'search' %}">
+    <input type="text" name="q" placeholder="Търси преживяване..." required>
+    <button type="submit">🔍</button>
+</form>
+
+<h2>Най-харесвани идеи</h2>
+<ul>
+  {% for idea in top_ideas %}
+    <li>
+      <a href="{% url 'idea_detail' idea.pk %}">{{ idea.title }}</a> — {{ idea.num_likes }} ❤️
+    </li>
+  {% empty %}
+    <li>Все още няма популярни идеи.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

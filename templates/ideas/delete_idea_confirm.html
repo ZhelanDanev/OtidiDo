@@ -1,3 +1,7 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+
 <h2>Потвърди изтриване</h2>
 <p>Сигурен ли си, че искаш да изтриеш идеята: <strong>{{ idea.title }}</strong>?</p>
 
@@ -6,3 +10,5 @@
   <button type="submit" class="btn btn-danger">Да, изтрий</button>
   <a href="{% url 'idea_detail' idea.pk %}" class="btn btn-secondary">Отказ</a>
 </form>
+
+{% endblock %}

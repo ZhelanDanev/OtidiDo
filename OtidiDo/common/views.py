@@ -9,5 +9,5 @@ from OtidiDo.ideas.models import Idea
 
 def home(request):
     top_ideas = Idea.objects.annotate(num_likes=Count('likes')).order_by('-num_likes')[:3]
-    return render(request, 'common/base.html', {'top_ideas': top_ideas})
+    return render(request, 'common/home.html', {'top_ideas': top_ideas})
 
