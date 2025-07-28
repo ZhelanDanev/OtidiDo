@@ -1,22 +1,39 @@
 {% extends "common/base.html" %}
 
 {% block content %}
-<h2>Профил на {{ user.username }}</h2>
+<h2 class="head2">Профил на {{ traveler.user.username }}</h2>
+
 
 {% if traveler.avatar %}
-    <img src="{{ traveler.avatar.url }}" alt="Аватар">
+    <img src="{{ traveler.avatar.url }}" alt="Аватар" class="uploaded-avatar">
 {% else %}
     <p>Няма качен аватар</p>
 {% endif %}
 
 <p><strong>Биография:</strong> {{ traveler.bio }}</p>
 
-<a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактирай профил</a>
+{% if user == traveler.user %}
+  <a href="{% url 'edit_profile' %}" class="btn btn-primary">Редактирай профил</a>
 
-<form action="{% url 'delete_profile' %}" method="post" onsubmit="return confirm('Сигурен ли си, че искаш да изтриеш акаунта си?');">
+<form id="deleteForm" action="{% url 'delete_profile' %}" method="post">
   {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Изтрий акаунта</button>
+  <button type="submit" class="delete-btn">Изтрий акаунта</button>
 </form>
+{% endif %}
+
+
+
+
+<!-- Delete Confirmation Modal -->
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <h3>Сигурен ли си, че искаш да изтриеш акаунта си?</h3>
+    <div class="modal-buttons">
+      <button id="cancelDelete">Отказ</button>
+      <button id="confirmDelete">Да, изтрий</button>
+    </div>
+  </div>
+</div>
 
 
 {% endblock %}

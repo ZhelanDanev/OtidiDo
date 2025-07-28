@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Регистрация</button>
-  </form>
+{% extends 'common/base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+    <div class="form-container">
+        <h2>Регистрация</h2>
+        <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn-primary">Регистрация</button>
+        </form>
+
+    </div>
+{% endblock %}

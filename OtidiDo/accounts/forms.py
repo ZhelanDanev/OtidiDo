@@ -11,8 +11,24 @@ class CustomUserCreationForm(UserCreationForm):
         model = AppUser
         fields = ('username', 'email', 'password1', 'password2')
 
+        labels = {
+            'username': 'Потребителско име',
+            'email': 'email',
+            'password1': 'Парола',
+            'password2': 'Повтори паролата',
+        }
+        help_texts = {
+            'password2': 'Повтори паролата'
+        }
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Traveler
         fields = ['avatar', 'bio']
+
+        labels = {
+            'avatar': 'Снимка',
+            'bio': 'Повече за мен',
+        }
+

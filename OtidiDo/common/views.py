@@ -5,9 +5,10 @@ from django.shortcuts import render
 from OtidiDo.ideas.models import Idea
 
 
-# Create your views here.
-
 def home(request):
     top_ideas = Idea.objects.annotate(num_likes=Count('likes')).order_by('-num_likes')[:3]
-    return render(request, 'common/home.html', {'top_ideas': top_ideas})
-
+    all_ideas = Idea.objects.exclude(date_event=None)  # само с дати
+    return render(request, 'common/home.html', {
+        'top_ideas': top_ideas,
+        'all_ideas': all_ideas
+    })

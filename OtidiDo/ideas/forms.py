@@ -11,6 +11,17 @@ class IdeaForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'rows': 4}),
             'date_event': forms.DateInput(attrs={'type': 'date'}),
         }
+        labels = {
+            'title': 'Заглавие',
+            'description': 'Описание',
+            'image': 'Снимка',
+            'city': 'Град',
+            'category': 'Категория',
+            'date_event': 'Дата на събитието',
+        }
+        help_texts = {
+            'image': 'Качи снимка в JPG формат'
+        }
 
 
 class CommentForm(forms.ModelForm):

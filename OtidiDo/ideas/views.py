@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import DetailView
@@ -50,7 +50,11 @@ def like_idea(request, pk):
 
 def search_view(request):
     query = request.GET.get("q", "")
-    results = Idea.objects.filter(title__icontains=query) if query else []
+    results = []
+    if query:
+        results = Idea.objects.filter(
+            Q(title__icontains=query) | Q(city__icontains=query)
+        ).distinct()
     return render(request, "ideas/search_results.html", {"query": query, "results": results})
 
 

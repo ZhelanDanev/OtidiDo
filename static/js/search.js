@@ -13,7 +13,9 @@ function getCookie(name) {
     return cookieValue;
 }
 
-document.getElementById("search-box").addEventListener("input", function () {
+const el = document.querySelector('search-box');
+if (el) {
+  el.addEventListener("input", function () {
     const query = this.value;
     if (query.length < 2) return;
 

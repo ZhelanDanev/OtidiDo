@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from OtidiDo.accounts.forms import CustomUserCreationForm, ProfileForm
 from django.contrib.auth.decorators import login_required
@@ -23,6 +23,12 @@ def register(request):
 @login_required
 def profile(request):
     traveler = Traveler.objects.get(user=request.user)
+    return render(request, 'accounts/profile.html', {'traveler': traveler})
+
+
+@login_required
+def profile_detail(request, pk):
+    traveler = get_object_or_404(Traveler, pk=pk)
     return render(request, 'accounts/profile.html', {'traveler': traveler})
 
 

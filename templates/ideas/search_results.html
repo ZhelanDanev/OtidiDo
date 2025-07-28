@@ -1,17 +1,34 @@
 {% extends 'common/base.html' %}
+{% load static %}
 
 {% block content %}
+
+
+<form method="get" action="{% url 'search' %}" class="search-form">
+    <input type="text" name="q" placeholder="Търси преживяване..." required>
+    <button type="submit">🔍</button>
+</form>
 
 <h2>Резултати за: "{{ query }}"</h2>
 
 {% if results %}
-  <ul>
-    {% for item in results %}
-      <li><strong>{{ item.title }}</strong>: {{ item.description }}</li>
+  <div class="ideas-grid">
+    {% for idea in results %}
+    <div class="idea-card">
+      <a href="{% url 'idea_detail' idea.pk %}">
+        {% if idea.image %}
+        <img src="{{ idea.image.url }}" alt="Снимка на {{ idea.title }}">
+        {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="Няма изображение">
+        {% endif %}
+        <h3>{{ idea.title }}</h3>
+        <p>{{ idea.city }}</p>
+      </a>
+    </div>
     {% endfor %}
-  </ul>
+  </div>
 {% else %}
-  <p>Няма намерени резултати.</p>
+<p>Няма резултати, отговарящи на търсенето.</p>
 {% endif %}
-
 {% endblock %}
+

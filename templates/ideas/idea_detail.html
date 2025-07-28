@@ -2,40 +2,70 @@
 
 {% block content %}
 
-<h2>{{ idea.title }}</h2>
+<h2 class="head2">{{ idea.title }}</h2>
 <p>{{ idea.description }}</p>
 <p>Град: {{ idea.city }}</p>
 {% if idea.date_event %}
 <p>Дата на събитието: {{ idea.date_event }}</p>
+<p>Идея от:
+    <a href="{% url 'profile_detail' idea.user.pk %}">
+        {{ idea.user.user.username }}
+    </a>
+</p>
 {% endif %}
 
 {% if idea.image %}
-  <img src="{{ idea.image.url }}" alt="Снимка" />
+<img src="{{ idea.image.url }}" alt="Снимка" class="uploaded-image"/>
 {% endif %}
 
 <!-- Like бутон -->
 <form method="post" action="{% url 'like_idea' idea.pk %}">
-  {% csrf_token %}
-  <button type="submit">
-    {% if liked %}💔 Unlike{% else %}❤️ Like{% endif %}
-  </button> {{ like_count }} харесвания
+    {% csrf_token %}
+    <button type="submit">
+        {% if liked %}💔 Unlike{% else %}❤️ Like{% endif %}
+    </button>
+    {{ like_count }} харесвания
 </form>
 
-<!-- Коментари -->
-<h3>Коментари</h3>
-<ul>
-  {% for comment in comments %}
-    <li><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</li>
-  {% empty %}
-    <li>Все още няма коментари.</li>
-  {% endfor %}
-</ul>
+{% if idea.user == request.user.traveler %}
+<a href="{% url 'edit_idea' idea.pk %}" class="btn btn-primary">Редактирай идея</a>
+<a href="{% url 'delete_idea' idea.pk %}" class="delete-btn">Изтрий идея</a>
+{% endif %}
 
-<!-- Форма за коментар -->
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Добави коментар</button>
-</form>
 
+<div class="comments-section">
+    <h3>Коментари</h3>
+
+    {% if comments %}
+    <ul class="comment-list">
+        {% for comment in comments %}
+        <li class="comment-item">
+            <div class="comment-author">
+                <strong>{{ comment.user.user.username }}</strong>
+                <span class="comment-date"> — {{ comment.created_at|date:"d.m.Y H:i" }}</span>
+            </div>
+            <div class="comment-text">{{ comment.text }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Все още няма коментари.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="comment-form">
+        <h4>Остави коментар</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Изпрати</button>
+        </form>
+    </div>
+    {% else %}
+    <p><a href="{% url 'login' %}">Влез</a>, за да оставиш коментар.</p>
+    {% endif %}
+</div>
+
+
+<!--</div>-->
 {% endblock %}

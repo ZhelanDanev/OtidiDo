@@ -1,16 +1,3 @@
-{% extends 'common/base.html' %}
-{% load static %}
-
-{% block content %}
-
-
-<h2 class="head2">{{ category_title }}</h2>
-
-<form method="get" action="{% url 'search' %}" class="search-form">
-    <input type="text" name="q" placeholder="Търси преживяване..." required>
-    <button type="submit">🔍</button>
-</form>
-
 <div class="ideas-grid">
   {% for idea in ideas %}
     <div class="idea-card">
@@ -28,7 +15,3 @@
     <p>Няма идеи в тази категория.</p>
   {% endfor %}
 </div>
-
-<a href="{% url 'create_idea' %}" class="new-idea-link">Ново предложение</a>
-
-{% endblock %}
